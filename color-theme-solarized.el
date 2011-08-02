@@ -10,7 +10,10 @@
 ;;; 2. Load this file
 ;;; 3. M-x color-theme-solarized-[dark|light]
 
-(require 'solarized-definitions)
+(require 'solarized-definitions
+         (if (file-exists-p (expand-file-name "./solarized-definitions.elc"))
+             (expand-file-name "./solarized-definitions.elc")
+           (expand-file-name "./solarized-definitions.el")))
 
 (eval-when-compile
   (require 'color-theme))
