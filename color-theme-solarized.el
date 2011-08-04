@@ -11,9 +11,16 @@
 ;;; 3. M-x color-theme-solarized-[dark|light]
 
 (require 'solarized-definitions
-         (if (file-exists-p (expand-file-name "./solarized-definitions.elc"))
-             (expand-file-name "./solarized-definitions.elc")
-           (expand-file-name "./solarized-definitions.el")))
+         (progn
+           ;; "relpath" is not in the elisp library
+           (let* ((reqname (concat (file-name-directory
+                                    (or load-file-name
+                                        buffer-file-name))
+                                   "solarized-definitions.el"))
+                  (compreqname (concat reqname "c")))
+             (if (file-exists-p compreqname)
+                 compreqname
+               reqname))))
 
 (eval-when-compile
   (require 'color-theme))
